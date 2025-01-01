@@ -19,10 +19,15 @@ func twitchHandler(client *twitch.Client) {
 	})
 
 	client.OnConnect(func() {
-		fmt.Println("Connected to Twitch chat!")
+
+		if ClientChannelName == "" {
+			log.Fatal("ClientChannelName is empty")
+		}
 
 		// Channel to join aka twitch streamer name
-		client.Join("")
+		client.Join(ClientChannelName)
+
+		fmt.Println("Connected to Twitch chat for", ClientChannelName)
 	})
 
 	go func() {
